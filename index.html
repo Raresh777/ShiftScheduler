@@ -60,12 +60,18 @@
       0%, 20% {
         opacity: 1;
       }
-      25%, 95% {
+      25%, 75% {
         opacity: 0;
       }
       100% {
         opacity: 1;
       }
+    }
+
+    .slide img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
@@ -96,11 +102,35 @@
     document.getElementById("supportButton").addEventListener("click", generateSupportMessage);
 
     function generateRandomSentence() {
-      // ... (rest of the code)
+      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
+      const randomAdverb = adverbs[Math.floor(Math.random() * adverbs.length)];
+      const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+      const randomAdjective1 = adjectives1[Math.floor(Math.random() * adjectives1.length)];
+      const randomPartnerPart = partnerParts[Math.floor(Math.random() * partnerParts.length)];
+      const randomAdjective2 = adjectives2[Math.floor(Math.random() * adjectives2.length)];
+      const randomMyPart = myParts[Math.floor(Math.random() * myParts.length)];
+      const randomPunctuation = punctuations[Math.floor(Math.random() * punctuations.length)];
+
+      const sentence = `${randomSetupVerb} ${randomAdverb} ${randomVerb} your ${randomAdjective1} ${randomPartnerPart} with my ${randomAdjective2} ${randomMyPart} ${randomPunctuation}`;
+
+      const outputElement = document.getElementById("output");
+      outputElement.textContent = sentence;
     }
 
     function generateSupportMessage() {
-      // ... (rest of the code)
+      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
+      const randomAdverb = adverbs[Math.floor(Math.random() * adverbs.length)];
+      const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+      const randomAdjective1 = adjectives1[Math.floor(Math.random() * adjectives1.length)];
+      const randomPartnerPart = partnerParts[Math.floor(Math.random() * partnerParts.length)];
+      const randomAdjective2 = adjectives2[Math.floor(Math.random() * adjectives2.length)];
+      const randomMyPart = myParts[Math.floor(Math.random() * myParts.length)];
+      const randomPunctuation = punctuations[Math.floor(Math.random() * punctuations.length)];
+
+      const sentence = `${randomSetupVerb} ${randomAdverb} ${randomVerb} your ${randomAdjective1} ${randomPartnerPart} with my ${randomAdjective2} ${randomMyPart} ${randomPunctuation}`;
+
+      const outputElement = document.getElementById("output");
+      outputElement.textContent = sentence;
     }
   </script>
 </body>
