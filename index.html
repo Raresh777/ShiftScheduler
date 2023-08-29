@@ -17,7 +17,7 @@
     }
 
     /* ... (your existing styles) ... */
-    
+
     .output-box {
       background-color: rgba(0, 0, 0, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -80,13 +80,13 @@
     <div id="output"></div>
     <button class="copy-button" onclick="copyToClipboard('output')">Copy Text</button>
   </div>
-  
+
   <button id="supportButton">Generate Support Message</button>
   <div class="output-box">
     <div id="supportOutput"></div>
     <button class="copy-button" onclick="copyToClipboard('supportOutput')">Copy Text</button>
   </div>
-  
+
   <script>
     // Your JavaScript code here
     const setupVerbs = ["l long to", "I want to", "I can't wait to", "I am dying to", "I dream of when I next"];
@@ -102,17 +102,7 @@
     document.getElementById("supportButton").addEventListener("click", generateSupportMessage);
 
     function generateRandomBundle() {
-      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
-      const randomAdverb = adverbs[Math.floor(Math.random() * adverbs.length)];
-      const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-      const randomAdjective1 = adjectives1[Math.floor(Math.random() * adjectives1.length)];
-      const randomPartnerPart = partnerParts[Math.floor(Math.random() * partnerParts.length)];
-      const randomAdjective2 = adjectives2[Math.floor(Math.random() * adjectives2.length)];
-      const randomMyPart = myParts[Math.floor(Math.random() * myParts.length)];
-      const randomPunctuation = punctuations[Math.floor(Math.random() * punctuations.length)];
-
-      const sentence = `${randomSetupVerb} ${randomAdverb} ${randomVerb} your ${randomAdjective1} ${randomPartnerPart} with my ${randomAdjective2} ${randomMyPart} ${randomPunctuation}`;
-
+      // ... (your generateRandomBundle logic)
       const outputElement = document.getElementById("output");
       outputElement.textContent = sentence;
     }
