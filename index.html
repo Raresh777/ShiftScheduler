@@ -102,37 +102,5 @@
     document.getElementById("supportButton").addEventListener("click", generateSupportMessage);
 
     function generateRandomBundle() {
-      // ... (your generateRandomBundle logic)
-      const outputElement = document.getElementById("output");
-      outputElement.textContent = sentence;
-    }
-
-    function generateSupportMessage() {
-      const supportMessages = [
-        "Your support means the world to us!",
-        "Thank you for being an amazing supporter!",
-        "Your generosity helps us create great content!",
-        "We appreciate your dedication and support!",
-        "With your support, we can keep creating awesome content!"
-      ];
-
-      const randomSupportMessage = supportMessages[Math.floor(Math.random() * supportMessages.length)];
-
-      const outputElement = document.getElementById("supportOutput");
-      outputElement.textContent = randomSupportMessage;
-    }
-
-    function copyToClipboard(elementId) {
-      const textElement = document.getElementById(elementId);
-      const text = textElement.textContent;
-      const dummyTextArea = document.createElement('textarea');
-      dummyTextArea.value = text;
-      document.body.appendChild(dummyTextArea);
-      dummyTextArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(dummyTextArea);
-      alert('Text copied to clipboard!');
-    }
-  </script>
-</body>
-</html>
+      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
+      const randomAdverb = adverbs[Math.floor(Math
