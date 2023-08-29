@@ -5,37 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Sentence Generator</title>
   <style>
-    body {
-      background-color: #121212;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
-    }
-
     /* ... (your existing styles) ... */
-
-    .output-box {
-      background-color: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      padding: 10px;
-      margin-top: 10px;
-      width: 80%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .copy-button {
-      background-color: transparent;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
 
     .slideshow-container {
       position: absolute;
@@ -70,10 +40,11 @@
 </head>
 <body>
   <div class="slideshow-container">
-    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/beach1.jpg" alt="Beach 1"></div>
-    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/beach2.jpg" alt="Beach 2"></div>
-    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/island1.jpg" alt="Island 1"></div>
-    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/island2.jpg" alt="Island 2"></div>
+    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/image%20(1).jpg" alt="Image 1"></div>
+    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/image%20(2).jpg" alt="Image 2"></div>
+    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/image%20(3).jpg" alt="Image 3"></div>
+    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/image%20(4).jpg" alt="Image 4"></div>
+    <div class="slide"><img src="https://raresh777.github.io/Bundle-Generator/images/image%20(5).jpg" alt="Image 5"></div>
   </div>
   <button id="generateButton">Generate Bundle</button>
   <div class="output-box">
@@ -102,46 +73,15 @@
     document.getElementById("supportButton").addEventListener("click", generateSupportMessage);
 
     function generateRandomBundle() {
-      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
-      const randomAdverb = adverbs[Math.floor(Math.random() * adverbs.length)];
-      const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-      const randomAdjective1 = adjectives1[Math.floor(Math.random() * adjectives1.length)];
-      const randomPartnerPart = partnerParts[Math.floor(Math.random() * partnerParts.length)];
-      const randomAdjective2 = adjectives2[Math.floor(Math.random() * adjectives2.length)];
-      const randomMyPart = myParts[Math.floor(Math.random() * myParts.length)];
-      const randomPunctuation = punctuations[Math.floor(Math.random() * punctuations.length)];
-
-      const sentence = `${randomSetupVerb} ${randomAdverb} ${randomVerb} your ${randomAdjective1} ${randomPartnerPart} with my ${randomAdjective2} ${randomMyPart} ${randomPunctuation}`;
-
-      const outputElement = document.getElementById("output");
-      outputElement.textContent = sentence;
+      // ... (existing generation logic)
     }
 
     function generateSupportMessage() {
-      const supportMessages = [
-        "Your support means the world to us!",
-        "Thank you for being an amazing supporter!",
-        "Your generosity helps us create great content!",
-        "We appreciate your dedication and support!",
-        "With your support, we can keep creating awesome content!"
-      ];
-
-      const randomSupportMessage = supportMessages[Math.floor(Math.random() * supportMessages.length)];
-
-      const outputElement = document.getElementById("supportOutput");
-      outputElement.textContent = randomSupportMessage;
+      // ... (existing generation logic)
     }
 
     function copyToClipboard(elementId) {
-      const textElement = document.getElementById(elementId);
-      const text = textElement.textContent;
-      const dummyTextArea = document.createElement('textarea');
-      dummyTextArea.value = text;
-      document.body.appendChild(dummyTextArea);
-      dummyTextArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(dummyTextArea);
-      alert('Text copied to clipboard!');
+      // ... (existing copy logic)
     }
   </script>
 </body>
