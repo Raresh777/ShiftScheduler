@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Sentence Generator</title>
+  <style>
+    body {
+      background-color: purple;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #generateButton {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #generateButton:hover {
+      background-color: #45a049;
+    }
+
+    #onlyfansLogo {
+      margin-top: 20px;
+      width: 150px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <button id="generateButton">Generate Random Sentence</button>
+  <div id="output"></div>
+  <img id="onlyfansLogo" src="onlyfans-logo.png" alt="OnlyFans Logo">
+  
+  <script>
+    // Your JavaScript code here
+    const setupVerbs = ["l long to", "I want to", "I can't wait to", "I am dying to", "I dream of when I next"];
+    const adverbs = ["hungrily", "roughly", "gently", "eagerly", "tenderly"];
+    const verbs = ["stroke", "mark", "bite", "nuzzle", "clutch"];
+    const adjectives1 = ["wet", "sticky", "soft", "beautiful", "hot"];
+    const partnerParts = ["lips", "nose", "eyes", "mouth", "chin"];
+    const adjectives2 = ["wet", "hot", "soft", "slick", "moist"];
+    const myParts = ["mouth", "tongue", "ears", "nose", "lips"];
+    const punctuations = ["💦", "🔥😏", "💦", "💦", "!!!"];
+
+    document.getElementById("generateButton").addEventListener("click", function() {
+      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
+      const randomAdverb = adverbs[Math.floor(Math.random() * adverbs.length)];
+      const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+      const randomAdjective1 = adjectives1[Math.floor(Math.random() * adjectives1.length)];
+      const randomPartnerPart = partnerParts[Math.floor(Math.random() * partnerParts.length)];
+      const randomAdjective2 = adjectives2[Math.floor(Math.random() * adjectives2.length)];
+      const randomMyPart = myParts[Math.floor(Math.random() * myParts.length)];
+      const randomPunctuation = punctuations[Math.floor(Math.random() * punctuations.length)];
+
+      const sentence = `${randomSetupVerb} ${randomAdverb} ${randomVerb} your ${randomAdjective1} ${randomPartnerPart} with my ${randomAdjective2} ${randomMyPart} ${randomPunctuation}`;
+
+      const outputElement = document.getElementById("output");
+      outputElement.textContent = sentence;
+    });
+  </script>
+</body>
+</html>
