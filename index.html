@@ -6,26 +6,30 @@
   <title>Random Sentence Generator</title>
   <style>
     body {
-      background-color: purple;
+      background-color: #141e30; /* Dark blue-black background */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
+      color: white; /* Text color */
+      font-family: Arial, sans-serif;
     }
 
     #generateButton {
       font-size: 18px;
       padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
+      background: linear-gradient(to bottom, #ffd700, #ffbf00); /* Golden gradient */
       border: none;
+      border-radius: 20px; /* Rounded button */
       cursor: pointer;
+      color: white; /* Button text color */
+      transition: background 0.3s;
     }
 
     #generateButton:hover {
-      background-color: #45a049;
+      background: linear-gradient(to bottom, #ffbf00, #ffd700); /* Golden gradient on hover */
     }
   </style>
 </head>
