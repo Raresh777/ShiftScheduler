@@ -6,7 +6,7 @@
   <title>Random Sentence Generator</title>
   <style>
     body {
-      background-color: #301934;
+      background-color: #333333;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -28,7 +28,7 @@
     .button-container button {
       font-size: 18px;
       padding: 10px 20px;
-      background-color: #DAA520;
+      background: linear-gradient(to right, #C0C0C0, #FFD700);
       border: none;
       border-radius: 20px;
       color: white;
@@ -36,7 +36,7 @@
     }
 
     .button-container button:hover {
-      background-color: #CD9A00;
+      background: linear-gradient(to right, #FFD700, #C0C0C0);
     }
 
     .output-container {
@@ -61,7 +61,6 @@
 </head>
 <body>
   <div class="button-container">
-    <button id="supportButton">Support Message</button>
     <button id="generateButton">Bundle</button>
   </div>
   <div class="output-container">
@@ -77,6 +76,9 @@
       <div id="output3"></div>
       <button class="copy-button" onclick="copyToClipboard('output3')">Copy Text</button>
     </div>
+  </div>
+  <div class="button-container">
+    <button id="supportButton">Support Message</button>
   </div>
   <div class="output-container">
     <div class="output-box">
@@ -94,7 +96,6 @@
   </div>
 
   <script>
-    // Your JavaScript code here
     const setupVerbs = ["long to", "want to", "can't wait to", "am dying to", "dream of when I next"];
     const adverbs = ["hungrily", "roughly", "gently", "eagerly", "tenderly"];
     const verbs = ["stroke", "mark", "bite", "nuzzle", "clutch"];
