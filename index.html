@@ -20,15 +20,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            width: 80%;
-            margin-bottom: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
         }
 
         .calendar {
             width: 180px;
             background: #fff;
             border: 1px solid #ddd;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             margin: 5px;
         }
@@ -50,7 +50,8 @@
             border: 1px solid #ddd;
         }
 
-        .day-name, .day {
+        .day-name,
+        .day {
             background: #f9f9f9;
             padding: 8px;
             text-align: center;
@@ -66,53 +67,105 @@
 
 <body>
 
-<h2>Yearly Ad Uploads</h2>
+    <h2>Yearly Ad Uploads</h2>
 
-<div class="calendar-container">
-    <div class="calendar">
-        <div class="month">January</div>
-        <div class="days">
-            <div class="day">45</div>
+    <div class="calendar-container">
+        <!-- The data for the months -->
+        <div class="calendar">
+            <div class="month">January</div>
+            <div class="days">
+                <div class="day">45</div>
+            </div>
         </div>
+        <div class="calendar">
+            <div class="month">February</div>
+            <div class="days">
+                <div class="day">94</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">March</div>
+            <div class="days">
+                <div class="day">68</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">April</div>
+            <div class="days">
+                <div class="day">51</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">May</div>
+            <div class="days">
+                <div class="day">78</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">June</div>
+            <div class="days">
+                <div class="day">18</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">July</div>
+            <div class="days">
+                <div class="day">26</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">August</div>
+            <div class="days">
+                <div class="day">22</div>
+            </div>
+        </div>
+        <div class="calendar">
+            <div class="month">September</div>
+            <div class="days">
+                <div class="day">107</div>
+            </div>
+        </div>
+        <!-- Add more months if needed -->
     </div>
 
-    <div class="calendar">
-        <div class="month">February</div>
-        <div class="days">
-            <div class="day">94</div>
-        </div>
+    <h2>Graphical Visualization</h2>
+    <div style="display: flex; justify-content: center;">
+        <canvas id="myChart" width="500" height="250"></canvas>
     </div>
 
-    <!-- ... Add other months similarly ... -->
-
-</div>
-
-<h2>Graphical Visualization</h2>
-<canvas id="myChart" width="700" height="350"></canvas>
-
-<script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
-            datasets: [{
-                label: 'Ads',
-                data: [45, 94, 68, 51, 78, 18, 26, 22],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
+        datasets: [{
+            label: 'Ads',
+            data: [45, 94, 68, 51, 78, 18, 26, 22, 107],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        {
+            label: 'Difference from Previous Month',
+            data: [null, 49, -26, -17, 27, -60, 8, -4, 85],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        },
+        {
+            label: '% Difference from Previous Month',
+            data: [null, 1.09, -0.28, -0.25, 0.53, -0.77, 0.44, -0.15, 3.86],
+            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
             }
         }
-    });
-</script>
-
-</body>
-</html>
+    }
+});
