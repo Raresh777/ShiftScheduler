@@ -1,169 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Sentence Generator</title>
-  <style>
-    body {
-      background: linear-gradient(to bottom, #333333, #AAAAAA);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .calendar-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
 
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1cm;
-      margin: 1cm 0; /* Add margin to top and bottom */
-    }
+        .calendar {
+            width: 23%;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            margin: 10px 0;
+        }
 
-    .button-container button {
-      font-size: 18px;
-      padding: 10px 20px;
-      background: linear-gradient(to right, silver, gold);
-      border: none;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-    }
+        .month {
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 10px;
+            font-weight: bold;
+        }
 
-    .button-container button:hover {
-      background: linear-gradient(to right, gold, silver);
-    }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
 
-    .output-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1cm;
-      justify-content: center;
-      margin: 1cm 0; /* Add margin to top and bottom */
-    }
+        .day, .day-name {
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 10px;
+            text-align: center;
+        }
 
-    .output-box {
-      width: 300px;
-      height: 150px;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      padding: 10px;
-    }
+        .day-name {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
 
-    .output-box button {
-      margin-top: 10px;
-    }
-  </style>
+        .days .day:last-child, .days .day-name:last-child {
+            border-right: none;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="button-container">
-    <button id="generateButton">Bundle</button>
-  </div>
-  <div class="output-container">
-    <div class="output-box">
-      <div id="output1"></div>
-      <button class="copy-button" onclick="copyToClipboard('output1')">Copy Text</button>
+
+<div class="calendar-container">
+    <div class="calendar">
+        <div class="month">January</div>
+        <div class="days">
+            <div class="day-name">1</div>
+            <!-- ... continue for the rest of the days if needed -->
+            <div class="day">45</div>
+            <!-- ... continue for the rest of the days if needed -->
+        </div>
     </div>
-    <div class="output-box">
-      <div id="output2"></div>
-      <button class="copy-button" onclick="copyToClipboard('output2')">Copy Text</button>
+
+    <div class="calendar">
+        <div class="month">February</div>
+        <div class="days">
+            <div class="day-name">1</div>
+            <!-- ... continue for the rest of the days if needed -->
+            <div class="day">94</div>
+            <!-- ... continue for the rest of the days if needed -->
+        </div>
     </div>
-    <div class="output-box">
-      <div id="output3"></div>
-      <button class="copy-button" onclick="copyToClipboard('output3')">Copy Text</button>
-    </div>
-  </div>
-  <div class="button-container">
-    <button id="supportButton">Support Message</button>
-  </div>
-  <div class="output-container">
-    <div class="output-box">
-      <div id="supportOutput1"></div>
-      <button class="copy-button" onclick="copyToClipboard('supportOutput1')">Copy Text</button>
-    </div>
-    <div class="output-box">
-      <div id="supportOutput2"></div>
-      <button class="copy-button" onclick="copyToClipboard('supportOutput2')">Copy Text</button>
-    </div>
-    <div class="output-box">
-      <div id="supportOutput3"></div>
-      <button class="copy-button" onclick="copyToClipboard('supportOutput3')">Copy Text</button>
-    </div>
-  </div>
 
-  <script>
-    const setupVerbs = ["long to", "want to", "can't wait to", "am dying to", "dream of when I next"];
-    const adverbs = ["hungrily", "roughly", "gently", "eagerly", "tenderly"];
-    const verbs = ["stroke", "mark", "bite", "nuzzle", "clutch"];
-    const adjectives1 = ["wet", "sticky", "soft", "beautiful", "hot"];
-    const partnerParts = ["lips", "nose", "eyes", "mouth", "chin"];
-    const adjectives2 = ["wet", "hot", "soft", "slick", "moist"];
-    const myParts = ["mouth", "tongue", "ears", "nose", "lips"];
-    const punctuations = ["💦", "🔥😏", "💦", "💦", "!!!"];
+    <!-- ... repeat for the other months -->
+</div>
 
-    document.getElementById("generateButton").addEventListener("click", generateRandomBundles);
-    document.getElementById("supportButton").addEventListener("click", generateSupportMessages);
+<h2>Graphical Visualization</h2>
+<canvas id="myChart" width="400" height="200"></canvas>
 
-    function generateRandomBundles() {
-      for (let i = 1; i <= 3; i++) {
-        generateRandomBundle(i);
-      }
-    }
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+            datasets: [{
+                label: 'Ads',
+                data: [45, 94, 68, 51, 78, 18, 26, 22],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Difference from Previous Month',
+                data: [null, 49, -26, -17, 27, -60, 8, -4], 
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            },
+            {
+                label: '% Difference from Previous Month',
+                data: [null, 1.09, -0.28, -0.25, 0.53, -0.77, 0.44, -0.15], 
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 
-    function generateRandomBundle(index) {
-      const randomSetupVerb = setupVerbs[Math.floor(Math.random() * setupVerbs.length)];
-      const randomAdverb = adverbs[Math.floor(Math.random() * adverbs.length)];
-      const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-      const randomAdjective1 = adjectives1[Math.floor(Math.random() * adjectives1.length)];
-      const randomPartnerPart = partnerParts[Math.floor(Math.random() * partnerParts.length)];
-      const randomAdjective2 = adjectives2[Math.floor(Math.random() * adjectives2.length)];
-      const randomMyPart = myParts[Math.floor(Math.random() * myParts.length)];
-      const randomPunctuation = punctuations[Math.floor(Math.random() * punctuations.length)];
-
-      const sentence = `${randomSetupVerb} ${randomAdverb} ${randomVerb} your ${randomAdjective1} ${randomPartnerPart} with my ${randomAdjective2} ${randomMyPart} ${randomPunctuation}`;
-
-      const outputElement = document.getElementById(`output${index}`);
-      outputElement.textContent = sentence;
-    }
-
-    function generateSupportMessages() {
-      for (let i = 1; i <= 3; i++) {
-        generateSupportMessage(i);
-      }
-    }
-
-    function generateSupportMessage(index) {
-      const supportMessages = [
-        "Your support means the world to us!",
-        "Thank you for being an amazing supporter!",
-        "Your generosity helps us create great content!",
-        "We appreciate your dedication and support!",
-        "With your support, we can keep creating awesome content!"
-      ];
-
-      const randomSupportMessage = supportMessages[Math.floor(Math.random() * supportMessages.length)];
-
-      const outputElement = document.getElementById(`supportOutput${index}`);
-      outputElement.textContent = randomSupportMessage;
-    }
-
-    function copyToClipboard(elementId) {
-      const textElement = document.getElementById(elementId);
-      const text = textElement.textContent;
-
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          alert('Text copied to clipboard');
-        })
-        .catch((error) => {
-          console.error('Error copying text to clipboard:', error);
-        });
-    }
-  </script>
 </body>
 </html>
