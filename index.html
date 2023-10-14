@@ -8,13 +8,13 @@
     <style>
         table {
             border-collapse: collapse;
-            width: 90%;
+            width: 80%;
             margin: 20px auto;
         }
 
         th, td {
             border: 1px solid #666;
-            padding: 12px 8px;
+            padding: 8px;
             text-align: center;
         }
 
@@ -44,10 +44,12 @@
 
     <script>
         function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
+            let shuffledArray = [...array];
+            for (let i = shuffledArray.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
             }
+            return shuffledArray;
         }
 
         function getColor(employee) {
@@ -65,6 +67,8 @@
             const emp2 = document.getElementById('emp2').value;
             const emp3 = document.getElementById('emp3').value;
             const emp4 = document.getElementById('emp4').value;
+            const employees = [emp1, emp2, emp3, emp4];
+            const lastNightShift = {};
 
             const monthPicker = document.getElementById('monthPicker');
             const selectedDate = new Date(monthPicker.value);
@@ -81,31 +85,48 @@
             scheduleHtml += "</tr>";
 
             const shifts = ["07:00 AM - 15:00 PM", "15:00 PM - 23:00 PM", "23:00 PM - 07:00 AM"];
+            let assigned = {};
 
-            let workDays = {};
-            [emp1, emp2, emp3, emp4].forEach(emp => workDays[emp] = 0);
+            for (let day = 1; day <= daysInMonth; day++) {
+                let dailyAssigned = {};
+                shifts.forEach((shift, shiftIndex) => {
+                    let possibleEmployees = shuffle(employees);
+                    
+                    // Rule 1: No morning shift after night shift
+                    if (shiftIndex === 0) {
+                        possibleEmployees = possibleEmployees.filter(emp => emp !== lastNightShift[day - 1]);
+                    }
+                    
+                    // Rule 2: Exclude already assigned employees for the day
+                    possibleEmployees = possibleEmployees.filter(emp => !Object.values(dailyAssigned).includes(emp));
 
-            shifts.forEach((shift) => {
+                    const assignedEmp = possibleEmployees[0];
+
+                    if (assignedEmp) {
+                        dailyAssigned[shift] = assignedEmp;
+                        assigned[day] = assigned[day] || {};
+                        assigned[day][shift] = assignedEmp;
+
+                        if (shiftIndex === 2) {
+                            lastNightShift[day] = assignedEmp;
+                        }
+                    }
+                });
+            }
+
+            // Convert assignments to table rows
+            shifts.forEach(shift => {
                 scheduleHtml += `<tr><td>${shift}</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
-                    let availableEmployees = [emp1, emp2, emp3, emp4].filter(emp => workDays[emp] < 4);
-                    shuffle(availableEmployees);
-                    let assignedEmp = availableEmployees[0];
-                    let colorClass = getColor(assignedEmp);
-
-                    if ((day - 1) % 7 === 5 || (day - 1) % 7 === 6 || workDays[assignedEmp] >= 4) {
-                        scheduleHtml += `<td></td>`;
-                    } else {
-                        scheduleHtml += `<td class="${colorClass}">${assignedEmp}</td>`;
-                        workDays[assignedEmp]++;
-                    }
+                    const emp = assigned[day] && assigned[day][shift];
+                    const colorClass = emp ? getColor(emp) : '';
+                    scheduleHtml += `<td class="${colorClass}">${emp || ''}</td>`;
                 }
-                scheduleHtml += "</tr>";
+                scheduleHtml += `</tr>`;
             });
 
             document.getElementById('schedule').innerHTML = scheduleHtml;
         }
     </script>
 </body>
-
 </html>
