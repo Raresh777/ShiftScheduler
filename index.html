@@ -39,6 +39,22 @@
             background-color: #4CAF50;
             color: white;
         }
+
+        .emp1Color {
+            background-color: #FF9999;
+        }
+        
+        .emp2Color {
+            background-color: #99FF99;
+        }
+
+        .emp3Color {
+            background-color: #9999FF;
+        }
+
+        .emp4Color {
+            background-color: #FFFF99;
+        }
     </style>
 </head>
 <body>
@@ -91,7 +107,13 @@
                 scheduleHtml += `<tr><td>${shift}</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
                     shuffle(employees);
-                    scheduleHtml += `<td>${employees[index % 4]}</td>`;
+                    let assignedEmp = employees[index % 4];
+                    let colorClass = `emp${(index % 4) + 1}Color`;
+                    if ((day-1) % 6 === 4 || (day-1) % 6 === 5) {
+                        scheduleHtml += `<td>-</td>`;
+                    } else {
+                        scheduleHtml += `<td class="${colorClass}">${assignedEmp}</td>`;
+                    }
                 }
                 scheduleHtml += "</tr>";
             });
