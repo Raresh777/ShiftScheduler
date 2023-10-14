@@ -6,39 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shift Scheduler</title>
     <style>
-        /* Improved styling for better visibility */
         table {
             border-collapse: collapse;
-            width: 90%; /* Increased table width */
-            margin: 20px auto; /* Center the table */
+            width: 90%;
+            margin: 20px auto;
         }
 
         th, td {
-            border: 1px solid #666; /* Darker border */
-            padding: 12px 8px; /* Increased padding */
+            border: 1px solid #666;
+            padding: 12px 8px;
             text-align: center;
-            font-size: 14px; /* Increased font size */
         }
 
         th {
-            background-color: #f2f2f2; /* Excel-like header */
+            background-color: #f2f2f2;
         }
 
-        .emp1Color {
-            background-color: #FFDDDD;
-        }
-
-        .emp2Color {
-            background-color: #DDFFDD;
-        }
-
-        .emp3Color {
-            background-color: #DDDFFF;
-        }
-
-        .emp4Color {
-            background-color: #FFFFDD;
-        }
+        .emp1Color { background-color: #FFDDDD; }
+        .emp2Color { background-color: #DDFFDD; }
+        .emp3Color { background-color: #DDDFFF; }
+        .emp4Color { background-color: #FFFFDD; }
     </style>
 </head>
 
@@ -79,11 +66,6 @@
             const emp3 = document.getElementById('emp3').value;
             const emp4 = document.getElementById('emp4').value;
 
-            if (!emp1 || !emp2 || !emp3 || !emp4) {
-                alert("Please fill in all employee names.");
-                return;
-            }
-
             const monthPicker = document.getElementById('monthPicker');
             const selectedDate = new Date(monthPicker.value);
             const year = selectedDate.getFullYear();
@@ -100,29 +82,22 @@
 
             const shifts = ["07:00 AM - 15:00 PM", "15:00 PM - 23:00 PM", "23:00 PM - 07:00 AM"];
 
-            shifts.forEach(() => {
-                let availableEmployees = [emp1, emp2, emp3, emp4];
-                let shiftCount = {
-                    [emp1]: 0,
-                    [emp2]: 0,
-                    [emp3]: 0,
-                    [emp4]: 0
-                };
+            let workDays = {};
+            [emp1, emp2, emp3, emp4].forEach(emp => workDays[emp] = 0);
 
+            shifts.forEach((shift) => {
                 scheduleHtml += `<tr><td>${shift}</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
+                    let availableEmployees = [emp1, emp2, emp3, emp4].filter(emp => workDays[emp] < 4);
                     shuffle(availableEmployees);
                     let assignedEmp = availableEmployees[0];
                     let colorClass = getColor(assignedEmp);
 
-                    if ((day - 1) % 7 === 5 || (day - 1) % 7 === 6) {
+                    if ((day - 1) % 7 === 5 || (day - 1) % 7 === 6 || workDays[assignedEmp] >= 4) {
                         scheduleHtml += `<td></td>`;
                     } else {
                         scheduleHtml += `<td class="${colorClass}">${assignedEmp}</td>`;
-                        shiftCount[assignedEmp]++;
-                        if (shiftCount[assignedEmp] >= 4) {
-                            availableEmployees = availableEmployees.filter(e => e !== assignedEmp);
-                        }
+                        workDays[assignedEmp]++;
                     }
                 }
                 scheduleHtml += "</tr>";
