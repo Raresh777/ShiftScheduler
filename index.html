@@ -86,7 +86,7 @@
     <table id="schedule"></table>
 
     <script>
-        let lastNightShiftEmployee = ""; // To keep track of the last night shift worker
+        let lastNightShiftEmployee = ""; 
 
         function getColor(employee) {
             switch (employee) {
@@ -118,10 +118,10 @@
             const month = selectedDate.getMonth();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            let scheduleHtml = "<tr><th>Data</th>";
+            let scheduleHtml = "<tr><th>Employee</th>";
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
-                const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}-${year}`;
+                const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}`;
                 scheduleHtml += `<th>${formattedDate}</th>`;
             }
             scheduleHtml += "</tr>";
@@ -130,12 +130,11 @@
 
             for (let i = 0; i < employees.length; i++) {
                 scheduleHtml += `<tr><td>${employees[i]}</td>`;
-                let prevShiftIndex = -1;  // To avoid assigning the same shift consecutively
 
                 for (let day = 1; day <= daysInMonth; day++) {
-                    shuffle(shifts);  // Randomize the shifts
+                    shuffle(shifts);
 
-                    let shiftIndex = shifts.indexOf(shifts.find(s => s !== lastNightShiftEmployee && s !== shifts[prevShiftIndex]));
+                    let shiftIndex = shifts.indexOf(shifts.find(s => s !== lastNightShiftEmployee));
 
                     if (shiftIndex === -1) {
                         shiftIndex = 0;
@@ -146,7 +145,6 @@
 
                     scheduleHtml += `<td class="${cellColor}">${shift}</td>`;
 
-                    prevShiftIndex = shiftIndex;
                     if (shift === "23:00 PM - 07:00 AM") {
                         lastNightShiftEmployee = employees[i];
                     }
