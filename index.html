@@ -1,77 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shift Scheduler</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        div {
-            margin: 20px;
-            padding: 15px;
-            background-color: #e4e4e9;
-            border-radius: 10px;
-        }
-
-        input, button {
-            padding: 8px 15px;
-            margin-right: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-
-        input[type="text"], input[type="month"] {
-            background-color: #ffffff;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: #ffffff;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
+        /* Basic styling for visibility */
         table {
-            width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            table-layout: fixed;
+            width: 100%;
         }
 
-        td, th {
-            border: 1px solid #ddd;
-            padding: 5px;
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
             text-align: center;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        .emp1Color {
+            background-color: #FFDDDD;
         }
 
-        th {
-            background-color: #4CAF50;
-            color: white;
+        .emp2Color {
+            background-color: #DDFFDD;
         }
 
-        .emp1Color { background-color: #FF9999; }
-        .emp2Color { background-color: #99FF99; }
-        .emp3Color { background-color: #9999FF; }
-        .emp4Color { background-color: #FFFF99; }
+        .emp3Color {
+            background-color: #DDDFFF;
+        }
+
+        .emp4Color {
+            background-color: #FFFFDD;
+        }
     </style>
 </head>
+
 <body>
     <div>
         <label for="monthPicker">Choose a month:</label>
@@ -86,7 +50,7 @@
     <table id="schedule"></table>
 
     <script>
-        let lastNightShiftEmployee = ""; 
+        let lastNightShiftEmployee = ""; // To keep track of the last night shift worker
 
         function getColor(employee) {
             switch (employee) {
@@ -98,6 +62,13 @@
             }
         }
 
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         function generateSchedule() {
             const emp1 = document.getElementById('emp1').value;
             const emp2 = document.getElementById('emp2').value;
@@ -105,56 +76,47 @@
             const emp4 = document.getElementById('emp4').value;
             const employees = [emp1, emp2, emp3, emp4];
 
-            function shuffle(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-            }
-
             const monthPicker = document.getElementById('monthPicker');
             const selectedDate = new Date(monthPicker.value);
             const year = selectedDate.getFullYear();
             const month = selectedDate.getMonth();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            let scheduleHtml = "<tr><th>Employee</th>";
+            let scheduleHtml = "<tr><th>Data</th>";
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
-                const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}`;
+                const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}-${year}`;
                 scheduleHtml += `<th>${formattedDate}</th>`;
             }
             scheduleHtml += "</tr>";
 
-            const shifts = ["07:00 AM - 15:00 PM", "15:00 PM - 23:00 PM", "23:00 PM - 07:00 AM"];
+            const shifts = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
 
-            for (let i = 0; i < employees.length; i++) {
-                scheduleHtml += `<tr><td>${employees[i]}</td>`;
-
+            shifts.forEach((shift, index) => {
+                scheduleHtml += `<tr><td>${shift}</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
-                    shuffle(shifts);
-
-                    let shiftIndex = shifts.indexOf(shifts.find(s => s !== lastNightShiftEmployee));
-
-                    if (shiftIndex === -1) {
-                        shiftIndex = 0;
+                    shuffle(employees);
+                    let assignedEmp = employees[index % 4];
+                    if (index === 0 && assignedEmp === lastNightShiftEmployee) {
+                        assignedEmp = employees[(index + 1) % 4];
                     }
 
-                    const shift = shifts[shiftIndex];
-                    const cellColor = getColor(employees[i]);
-
-                    scheduleHtml += `<td class="${cellColor}">${shift}</td>`;
-
-                    if (shift === "23:00 PM - 07:00 AM") {
-                        lastNightShiftEmployee = employees[i];
+                    let colorClass = getColor(assignedEmp);
+                    if ((day - 1) % 6 === 4 || (day - 1) % 6 === 5) {
+                        scheduleHtml += `<td>-</td>`;
+                    } else {
+                        scheduleHtml += `<td class="${colorClass}">${assignedEmp}</td>`;
+                        if (shift === "23:00 - 07:00") {
+                            lastNightShiftEmployee = assignedEmp;
+                        }
                     }
                 }
-
                 scheduleHtml += "</tr>";
-            }
+            });
 
             document.getElementById('schedule').innerHTML = scheduleHtml;
         }
     </script>
 </body>
+
 </html>
