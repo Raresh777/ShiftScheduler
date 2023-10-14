@@ -73,7 +73,6 @@
             const emp2 = document.getElementById('emp2').value;
             const emp3 = document.getElementById('emp3').value;
             const emp4 = document.getElementById('emp4').value;
-            const employees = [emp1, emp2, emp3, emp4];
 
             const monthPicker = document.getElementById('monthPicker');
             const selectedDate = new Date(monthPicker.value);
@@ -91,33 +90,30 @@
 
             const shifts = ["07:00 AM - 15:00 PM", "15:00 PM - 23:00 PM", "23:00 PM - 07:00 AM"];
 
-            let shiftCount = {}; // Keep track of how many days an employee has worked
-            shifts.forEach((shift, index) => {
+            shifts.forEach((shift) => {
+                let shiftCount = {
+                    [emp1]: 0,
+                    [emp2]: 0,
+                    [emp3]: 0,
+                    [emp4]: 0
+                };
+
+                let availableEmployees = [emp1, emp2, emp3, emp4];
+
                 scheduleHtml += `<tr><td>${shift}</td>`;
-                let prevAssignedEmp = "";
                 for (let day = 1; day <= daysInMonth; day++) {
-                    shuffle(employees);
-                    let assignedEmp = employees[0];
+                    shuffle(availableEmployees);
+                    let assignedEmp = availableEmployees[0];
+                    let colorClass = getColor(assignedEmp);
 
-                    if (prevAssignedEmp === assignedEmp || (index === 0 && prevAssignedEmp === employees[2])) {
-                        assignedEmp = employees[1];
-                    }
-
-                    if ((day - 1) % 7 >= 4) { // Assuming the last 3 days in a 7 day period are off days
-                        scheduleHtml += `<td></td>`; // Blank for days off
+                    if ((day - 1) % 7 >= 4) {
+                        scheduleHtml += `<td></td>`;
                     } else {
-                        let colorClass = getColor(assignedEmp);
                         scheduleHtml += `<td class="${colorClass}">${assignedEmp}</td>`;
-                        prevAssignedEmp = assignedEmp;
-
-                        if (!shiftCount[assignedEmp]) {
-                            shiftCount[assignedEmp] = 0;
-                        }
                         shiftCount[assignedEmp]++;
 
                         if (shiftCount[assignedEmp] >= 4) {
-                            // Remove the employee from the available list after they've been assigned 4 days
-                            employees.splice(employees.indexOf(assignedEmp), 1);
+                            availableEmployees = availableEmployees.filter(e => e !== assignedEmp);
                         }
                     }
                 }
