@@ -9,13 +9,30 @@
         /* Basic styling for visibility */
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 800px; /* Fixed width */
+            margin: 20px auto; /* Center the table */
         }
 
         th, td {
             border: 1px solid black;
             padding: 8px;
             text-align: center;
+        }
+
+        .emp1Color {
+            background-color: #FFDDDD;
+        }
+
+        .emp2Color {
+            background-color: #DDFFDD;
+        }
+
+        .emp3Color {
+            background-color: #DDDFFF;
+        }
+
+        .emp4Color {
+            background-color: #FFFFDD;
         }
     </style>
 </head>
@@ -38,6 +55,16 @@
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function getColor(employee) {
+            switch (employee) {
+                case document.getElementById('emp1').value: return 'emp1Color';
+                case document.getElementById('emp2').value: return 'emp2Color';
+                case document.getElementById('emp3').value: return 'emp3Color';
+                case document.getElementById('emp4').value: return 'emp4Color';
+                default: return '';
             }
         }
 
@@ -64,6 +91,7 @@
 
             const shifts = ["07:00 AM - 15:00 PM", "15:00 PM - 23:00 PM", "23:00 PM - 07:00 AM"];
 
+            let shiftCount = {}; // Keep track of how many days an employee has worked
             shifts.forEach((shift, index) => {
                 scheduleHtml += `<tr><td>${shift}</td>`;
                 let prevAssignedEmp = "";
@@ -75,11 +103,22 @@
                         assignedEmp = employees[1];
                     }
 
-                    if ((day - 1) % 6 === 5 && index === 1) {
-                        scheduleHtml += `<td>-</td>`;
+                    if ((day - 1) % 7 >= 4) { // Assuming the last 3 days in a 7 day period are off days
+                        scheduleHtml += `<td></td>`; // Blank for days off
                     } else {
-                        scheduleHtml += `<td>${assignedEmp}</td>`;
+                        let colorClass = getColor(assignedEmp);
+                        scheduleHtml += `<td class="${colorClass}">${assignedEmp}</td>`;
                         prevAssignedEmp = assignedEmp;
+
+                        if (!shiftCount[assignedEmp]) {
+                            shiftCount[assignedEmp] = 0;
+                        }
+                        shiftCount[assignedEmp]++;
+
+                        if (shiftCount[assignedEmp] >= 4) {
+                            // Remove the employee from the available list after they've been assigned 4 days
+                            employees.splice(employees.indexOf(assignedEmp), 1);
+                        }
                     }
                 }
                 scheduleHtml += "</tr>";
