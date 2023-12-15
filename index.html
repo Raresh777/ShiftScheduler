@@ -35,9 +35,12 @@
 </head>
 <body>
 <h1>Shift Earnings Calculator</h1>
-<input type="file" id="input-excel" />
-<button onclick="handleFile()">Calculate Earnings</button>
-<div id="results"></div>
+<input type="file" id="input-excel" multiple />
+<button onclick="handleFiles()">Calculate Earnings</button>
+<div id="results1" class="results"></div>
+<div id="results2" class="results"></div>
+<div id="results3" class="results"></div>
+<div id="results4" class="results"></div>
 
 <script>
 function assignShift(date) {
@@ -124,24 +127,27 @@ function createTable(earningsPerShift) {
   return table;
 }
 
-function handleFile() {
+function handleFiles() {
   const input = document.getElementById('input-excel');
-  const file = input.files[0];
-  const reader = new FileReader();
-  
-  reader.onload = function(e) {
-    const data = e.target.result;
-    const workbook = XLSX.read(data, {
-      type: 'binary'
-    });
-    
-    const earningsPerShift = calculateShiftEarnings(workbook);
-    const resultsTable = createTable(earningsPerShift);
-    document.getElementById('results').innerHTML = '';
-    document.getElementById('results').appendChild(resultsTable);
-  };
+  const files = input.files;
+  for (let i = 0; i < files.length && i < 4; i++) {
+    const file = files[i];
+    const reader = new FileReader();
 
-  reader.readAsBinaryString(file);
+    reader.onload = function(e) {
+      const data = e.target.result;
+      const workbook = XLSX.read(data, {
+        type: 'binary'
+      });
+
+      const earningsPerShift = calculateShiftEarnings(workbook);
+      const resultsTable = createTable(earningsPerShift);
+      document.getElementById('results' + (i + 1)).innerHTML = '';
+      document.getElementById('results' + (i + 1)).appendChild(resultsTable);
+    };
+
+    reader.readAsBinaryString(file);
+  }
 }
 </script>
 </body>
