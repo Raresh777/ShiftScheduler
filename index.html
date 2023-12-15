@@ -17,6 +17,17 @@
   #results {
     margin-top: 20px;
   }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
 </style>
 </head>
 <body>
@@ -26,6 +37,89 @@
 <div id="results"></div>
 
 <script>
+function assignShift(date) {
+  const hour = date.getHours();
+  if (hour >= 7 && hour < 15) {
+    return '07:00 AM - 15:00 PM';
+  } else if (hour >= 15 && hour < 23) {
+    return '15:00 PM - 23:00 PM';
+  } else {
+    return '23:00 PM - 07:00 AM';
+  }
+}
+
+function calculateShiftEarnings(workbook) {
+  const firstSheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[firstSheetName];
+  const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  rows.shift(); // Remove the header
+  
+  let earningsPerShift = {};
+
+  rows.forEach(row => {
+    if (row && row.length > 0) {
+      const date = new Date(row[0]);
+      const shift = assignShift(date);
+      const netEarnings = parseFloat(row[3]);
+      
+      if (!earningsPerShift[shift]) {
+        earningsPerShift[shift] = {};
+      }
+
+      const dateString = date.toISOString().split('T')[0];
+      if (!earningsPerShift[shift][dateString]) {
+        earningsPerShift[shift][dateString] = 0;
+      }
+      
+      earningsPerShift[shift][dateString] += netEarnings;
+    }
+  });
+
+  return earningsPerShift;
+}
+
+function createTable(earningsPerShift) {
+  const table = document.createElement('table');
+  const thead = table.createTHead();
+  const tbody = table.createTBody();
+  const headerRow = thead.insertRow();
+
+  // Create header
+  const shiftHeader = document.createElement('th');
+  shiftHeader.textContent = 'Shift';
+  headerRow.appendChild(shiftHeader);
+
+  let dateHeaders = [];
+  for (const shift in earningsPerShift) {
+    for (const date in earningsPerShift[shift]) {
+      if (!dateHeaders.includes(date)) {
+        dateHeaders.push(date);
+      }
+    }
+  }
+
+  dateHeaders.sort();
+  dateHeaders.forEach(date => {
+    const dateHeader = document.createElement('th');
+    dateHeader.textContent = date;
+    headerRow.appendChild(dateHeader);
+  });
+
+  // Create body
+  for (const shift in earningsPerShift) {
+    const row = tbody.insertRow();
+    const shiftCell = row.insertCell();
+    shiftCell.textContent = shift;
+
+    dateHeaders.forEach(date => {
+      const cell = row.insertCell();
+      cell.textContent = earningsPerShift[shift][date] ? earningsPerShift[shift][date].toFixed(2) : '0.00';
+    });
+  }
+
+  return table;
+}
+
 function handleFile() {
   const input = document.getElementById('input-excel');
   const file = input.files[0];
@@ -36,12 +130,11 @@ function handleFile() {
     const workbook = XLSX.read(data, {
       type: 'binary'
     });
-    // Here you would process the workbook and calculate the earnings
-    // For simplicity, we're just logging the object to the console
-    console.log(workbook);
-    // Processing and calculations would go here
-    // After calculations, update the page to display the results
-    document.getElementById('results').innerText = 'File read. Check the console for workbook object.';
+    
+    const earningsPerShift = calculateShiftEarnings(workbook);
+    const resultsTable = createTable(earningsPerShift);
+    document.getElementById('results').innerHTML = '';
+    document.getElementById('results').appendChild(resultsTable);
   };
 
   reader.readAsBinaryString(file);
