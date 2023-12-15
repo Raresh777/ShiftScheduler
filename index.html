@@ -54,7 +54,11 @@ function calculateShiftEarnings(workbook) {
   const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
   rows.shift(); // Remove the header
   
-  let earningsPerShift = {};
+  let earningsPerShift = {
+    '07:00 AM - 15:00 PM': {},
+    '15:00 PM - 23:00 PM': {},
+    '23:00 PM - 07:00 AM': {}
+  };
 
   rows.forEach(row => {
     if (row && row.length > 0) {
@@ -62,10 +66,6 @@ function calculateShiftEarnings(workbook) {
       const shift = assignShift(date);
       const netEarnings = parseFloat(row[3]);
       
-      if (!earningsPerShift[shift]) {
-        earningsPerShift[shift] = {};
-      }
-
       const dateString = date.toISOString().split('T')[0];
       if (!earningsPerShift[shift][dateString]) {
         earningsPerShift[shift][dateString] = 0;
@@ -105,8 +105,9 @@ function createTable(earningsPerShift) {
     headerRow.appendChild(dateHeader);
   });
 
-  // Create body
-  for (const shift in earningsPerShift) {
+  // Create body in specific order
+  const shiftsOrder = ['07:00 AM - 15:00 PM', '15:00 PM - 23:00 PM', '23:00 PM - 07:00 AM'];
+  shiftsOrder.forEach(shift => {
     const row = tbody.insertRow();
     const shiftCell = row.insertCell();
     shiftCell.textContent = shift;
@@ -115,7 +116,7 @@ function createTable(earningsPerShift) {
       const cell = row.insertCell();
       cell.textContent = earningsPerShift[shift][date] ? earningsPerShift[shift][date].toFixed(2) : '0.00';
     });
-  }
+  });
 
   return table;
 }
