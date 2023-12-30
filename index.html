@@ -137,26 +137,25 @@ function createTable(earningsPerShift) {
 }
 
 function handleFile(inputId, resultId) {
-    const input = document.getElementById(inputId);
-    const file = input.files[0];
-    if (!file) return; // Exit if no file is selected
+  const input = document.getElementById(inputId);
+  const file = input.files[0];
+  if (!file) return;
 
-    const reader = new FileReader();
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const data = e.target.result;
+    const workbook = XLSX.read(data, {
+      type: 'binary'
+    });
 
-    reader.onload = function(e) {
-        const data = e.target.result;
-        const workbook = XLSX.read(data, {
-            type: 'binary'
-        });
+    const earningsPerShift = calculateShiftEarnings(workbook);
+    const resultsTable = createTable(earningsPerShift);
+    const resultsDiv = document.getElementById(resultId);
+    resultsDiv.innerHTML = '';
+    resultsDiv.appendChild(resultsTable);
+  };
 
-        const earningsPerShift = calculateShiftEarnings(workbook);
-        const resultsTable = createTable(earningsPerShift);
-        document.getElementById(resultId).innerHTML = '';
-        document.getElementById(resultId).appendChild(resultsTable);
-    };
-
-    reader.readAsBinaryString(file);
-
+  reader.readAsBinaryString(file);
 }
 </script>
 </body>
