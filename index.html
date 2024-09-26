@@ -32,8 +32,27 @@
             color: #FFD700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .header-title::before,
+        .header-title::after {
+            content: '';
+            display: block;
+            height: 3px;
+            background: #FFD700;
+            width: 120%;
+            position: absolute;
+            left: -10%;
+        }
+
+        .header-title::before {
+            top: -10px;
+        }
+
+        .header-title::after {
+            bottom: -10px;
         }
 
         .flowchart {
@@ -50,10 +69,9 @@
             align-items: center;
             gap: 20px;
             padding: 10px;
-            border: 1px solid #FFD700;
+            border: 1px solid #6a6a6a;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-            background: rgba(28, 28, 28, 0.7);
+            background: rgba(40, 40, 40, 0.8);
         }
 
         .box {
@@ -64,6 +82,8 @@
             width: 100%;
             max-width: 300px;
             text-align: center;
+            border: 1px solid #555;
+            background: rgba(50, 50, 50, 0.9);
         }
 
         .objective { background: linear-gradient(135deg, #ff5f6d, #ffc371); }
@@ -72,9 +92,9 @@
 
         .description {
             padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(30, 30, 30, 0.8);
             border-radius: 8px;
-            border: 1px solid #fff;
+            border: 1px solid #444;
             max-width: 300px;
             width: 100%;
             text-align: left;
