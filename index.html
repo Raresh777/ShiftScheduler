@@ -20,29 +20,27 @@
             gap: 20px;
         }
 
-        .logo {
+        .header {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
         }
 
-        .logo img {
-            max-width: 300px;
-            margin-bottom: 10px;
-        }
-
-        .logo-title {
-            font-size: 24px;
+        .header-title {
+            font-size: 32px;
             color: #FFD700;
             letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
         }
 
         .flowchart {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            max-width: 1400px;
+            gap: 60px;
+            max-width: 1600px;
             margin: auto;
         }
 
@@ -51,6 +49,11 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            padding: 10px;
+            border: 1px solid #FFD700;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            background: rgba(28, 28, 28, 0.7);
         }
 
         .box {
@@ -90,10 +93,9 @@
 </head>
 <body>
 
-<!-- DARE Logo Section -->
-<div class="logo">
-    <img src="logo-dare-white-3.png" alt="DARE Logo">
-    <div class="logo-title">DARE Strategy Flow</div>
+<!-- DARE Strategy Flow Header -->
+<div class="header">
+    <div class="header-title">DARE Strategy Flow</div>
 </div>
 
 <div class="flowchart">
