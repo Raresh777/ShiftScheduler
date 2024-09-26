@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowchart</title>
+    <title>DARE Strategy Flow</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
@@ -15,15 +15,33 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .logo-title {
+            font-size: 24px;
+            color: #FFD700;
+            letter-spacing: 2px;
         }
 
         .flowchart {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+            gap: 40px;
             max-width: 1400px;
             margin: auto;
         }
@@ -49,6 +67,17 @@
         .kpi { background: linear-gradient(135deg, #00c9ff, #92fe9d); }
         .pilot { background: linear-gradient(135deg, #f7971e, #ffd200); }
 
+        .description {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            border: 1px solid #fff;
+            max-width: 300px;
+            width: 100%;
+            text-align: left;
+            margin-top: -10px;
+        }
+
         .arrow {
             width: 0; 
             height: 0; 
@@ -61,41 +90,121 @@
 </head>
 <body>
 
+<!-- DARE Logo Section -->
+<div class="logo">
+    <img src="logo-dare-white-3.png" alt="DARE Logo">
+    <div class="logo-title">DARE Strategy Flow</div>
+</div>
+
 <div class="flowchart">
     <!-- Column 1 -->
     <div class="column">
         <div class="box objective">Objective 1: Increase Lead Generation</div>
+        <div class="description">
+            Focus on maximizing the number of qualified leads for DARE's training programs to feed into Pioneer roles.
+        </div>
         <div class="arrow"></div>
         <div class="box kpi">KPI 1: Lead Generation Metrics</div>
+        <div class="description">
+            <ul>
+                <li>Number of leads generated per campaign and platform (META, TikTok, etc.).</li>
+                <li>Conversion rates from leads to enrolled trainees.</li>
+                <li>Cost per lead (CPL) to measure cost efficiency.</li>
+            </ul>
+        </div>
         <div class="arrow"></div>
         <div class="box pilot">Pilot 1: Weekly Performance Reviews</div>
+        <div class="description">
+            <ul>
+                <li>Regularly review campaign performance data.</li>
+                <li>Adjust strategies based on the best-performing creatives, texts, and formats.</li>
+            </ul>
+        </div>
     </div>
 
     <!-- Column 2 -->
     <div class="column">
         <div class="box objective">Objective 2: Optimize Campaign Performance</div>
+        <div class="description">
+            <ul>
+                <li>Ensure all campaigns are cost-efficient.</li>
+                <li>Reach the correct audience.</li>
+                <li>Maximize engagement and conversion rates.</li>
+            </ul>
+        </div>
         <div class="arrow"></div>
         <div class="box kpi">KPI 2: Campaign Performance Metrics</div>
+        <div class="description">
+            <ul>
+                <li>Engagement rate (likes, shares, comments).</li>
+                <li>Click-through rate (CTR) for ads.</li>
+                <li>Cost per Engagement (CPE).</li>
+            </ul>
+        </div>
         <div class="arrow"></div>
         <div class="box pilot">Pilot 2: Daily Reporting and Adjustments</div>
+        <div class="description">
+            <ul>
+                <li>Use daily reports to monitor the status of lead generation and location-specific needs.</li>
+                <li>Adjust campaign focus (e.g., increase spend in locations with low lead flow).</li>
+            </ul>
+        </div>
     </div>
 
     <!-- Column 3 -->
     <div class="column">
         <div class="box objective">Objective 3: Monitor Location-Specific Hiring Needs</div>
+        <div class="description">
+            <ul>
+                <li>Continuously assess which locations need more talent.</li>
+                <li>Deploy resources to meet these needs effectively.</li>
+            </ul>
+        </div>
         <div class="arrow"></div>
         <div class="box kpi">KPI 3: Location-Specific Hiring Metrics</div>
+        <div class="description">
+            <ul>
+                <li>Number of hires needed per location and language.</li>
+                <li>Lead generation success rate per location.</li>
+                <li>Campaign effectiveness in targeted languages.</li>
+            </ul>
+        </div>
         <div class="arrow"></div>
         <div class="box pilot">Pilot 3: Resource Allocation Based on Data</div>
+        <div class="description">
+            <ul>
+                <li>Dynamically allocate resources (content creation, ad spend).</li>
+                <li>Target campaigns showing the best lead conversion rates.</li>
+            </ul>
+        </div>
     </div>
 
     <!-- Column 4 -->
     <div class="column">
         <div class="box objective">Objective 4: Maximize the Effectiveness of Recruitment Events (JRs)</div>
+        <div class="description">
+            Ensure each recruitment event meets its language needs, location targets, and CV collection goals, aligning with Pioneer's demand for specific skills and talents.
+        </div>
         <div class="arrow"></div>
         <div class="box kpi">KPI 4: Recruitment Event Metrics</div>
+        <div class="description">
+            <ul>
+                <li>Event Attendance Rate: Measure the number of attendees compared to the target number of candidates for each event.</li>
+                <li>Language Match Rate: Track how well the collected CVs meet the language needs specified for each event.</li>
+                <li>CV Collection Target Achievement: Monitor the percentage of the target CVs collected at each event.</li>
+                <li>Event Cost Efficiency: Calculate the average cost per CV collected to ensure events are conducted efficiently.</li>
+            </ul>
+        </div>
         <div class="arrow"></div>
         <div class="box pilot">Pilot 4: Recruitment Event Optimization Strategies</div>
+        <div class="description">
+            <ul>
+                <li>Pre-Event Targeting and Promotion: Use targeted promotions to ensure attendance aligns with language and skill requirements for each event.</li>
+                <li>On-Site Feedback and Adjustment: Collect feedback during events to make on-the-spot adjustments.</li>
+                <li>Post-Event Analysis and Reporting: Analyze attendance, language match, and CV collection to refine future events.</li>
+                <li>Dynamic Resource Allocation: Adjust resources dynamically based on event performance data.</li>
+            </ul>
+        </div>
     </div>
 </div>
 
