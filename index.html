@@ -1,162 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shift Earnings Calculator</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  h1 {
-    color: #333;
-  }
-  #results {
-    margin-top: 20px;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 0.9em;
-  }
-  th, td {
-    border: 1px solid black;
-    padding: 5px;
-    text-align: left;
-    height: 25px; /* Adjust row height */
-  }
-  th {
-    background-color: #f2f2f2;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Flow</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #1c1c1c;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 1200px;
+            gap: 30px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #FFD700;
+        }
+
+        .box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .objective { background: linear-gradient(135deg, #ff5f6d, #ffc371); }
+        .kpi { background: linear-gradient(135deg, #00c9ff, #92fe9d); }
+        .pilot { background: linear-gradient(135deg, #f7971e, #ffd200); }
+
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            border: 1px solid #fff;
+        }
+
+        .box:hover .details {
+            display: block;
+        }
+
+        .icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>Shift Earnings Calculator</h1>
-<input type="file" id="input-excel1" />
-<button onclick="handleFile('input-excel1', 'results1')">Calculate Earnings 1</button>
-<div id="results1" class="results"></div>
 
-<input type="file" id="input-excel2" />
-<button onclick="handleFile('input-excel2', 'results2')">Calculate Earnings 2</button>
-<div id="results2" class="results"></div>
+<div class="container">
+    <!-- Step 1 -->
+    <div class="step">
+        <img src="icon-objective.png" alt="Objective Icon" class="icon">
+        <div class="box objective">
+            Objective 1: Increase Lead Generation
+            <div class="details">
+                Focus on maximizing the number of qualified leads for DARE's training programs to feed into Pioneer roles.
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box kpi">
+            KPI 1: Lead Generation Metrics
+            <div class="details">
+                <ul>
+                    <li>Number of leads generated per campaign and platform (META, TikTok, etc.).</li>
+                    <li>Conversion rates from leads to enrolled trainees.</li>
+                    <li>Cost per lead (CPL) to measure cost efficiency.</li>
+                </ul>
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box pilot">
+            Pilot 1: Weekly Performance Reviews
+            <div class="details">
+                <ul>
+                    <li>Regularly review campaign performance data.</li>
+                    <li>Adjust strategies based on the best-performing creatives, texts, and formats.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<input type="file" id="input-excel3" />
-<button onclick="handleFile('input-excel3', 'results3')">Calculate Earnings 3</button>
-<div id="results3" class="results"></div>
+    <!-- Step 2 -->
+    <div class="step">
+        <img src="icon-objective.png" alt="Objective Icon" class="icon">
+        <div class="box objective">
+            Objective 2: Optimize Campaign Performance
+            <div class="details">
+                <ul>
+                    <li>Ensure all campaigns are cost-efficient.</li>
+                    <li>Reach the correct audience.</li>
+                    <li>Maximize engagement and conversion rates.</li>
+                </ul>
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box kpi">
+            KPI 2: Campaign Performance Metrics
+            <div class="details">
+                <ul>
+                    <li>Engagement rate (likes, shares, comments).</li>
+                    <li>Click-through rate (CTR) for ads.</li>
+                    <li>Cost per Engagement (CPE).</li>
+                </ul>
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box pilot">
+            Pilot 2: Daily Reporting and Adjustments
+            <div class="details">
+                <ul>
+                    <li>Use daily reports to monitor the status of lead generation and location-specific needs.</li>
+                    <li>Adjust campaign focus (e.g., increase spend in locations with low lead flow).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<input type="file" id="input-excel4" />
-<button onclick="handleFile('input-excel4', 'results4')">Calculate Earnings 4</button>
-<div id="results4" class="results"></div>
+    <!-- Step 3 -->
+    <div class="step">
+        <img src="icon-objective.png" alt="Objective Icon" class="icon">
+        <div class="box objective">
+            Objective 3: Monitor Location-Specific Hiring Needs
+            <div class="details">
+                <ul>
+                    <li>Continuously assess which locations need more talent.</li>
+                    <li>Deploy resources to meet these needs effectively.</li>
+                </ul>
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box kpi">
+            KPI 3: Location-Specific Hiring Metrics
+            <div class="details">
+                <ul>
+                    <li>Number of hires needed per location and language.</li>
+                    <li>Lead generation success rate per location.</li>
+                    <li>Campaign effectiveness in targeted languages.</li>
+                </ul>
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box pilot">
+            Pilot 3: Resource Allocation Based on Data
+            <div class="details">
+                <ul>
+                    <li>Dynamically allocate resources (content creation, ad spend).</li>
+                    <li>Target campaigns showing the best lead conversion rates.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<script>
-function assignShift(date) {
-  const hour = date.getHours();
-  if (hour >= 7 && hour < 15) {
-    return '07:00 AM - 15:00 PM';
-  } else if (hour >= 15 && hour < 23) {
-    return '15:00 PM - 23:00 PM';
-  } else {
-    return '23:00 PM - 07:00 AM';
-  }
-}
+    <!-- Step 4 -->
+    <div class="step">
+        <img src="icon-objective.png" alt="Objective Icon" class="icon">
+        <div class="box objective">
+            Objective 4: Maximize the Effectiveness of Recruitment Events (JRs)
+            <div class="details">
+                Ensure each recruitment event meets its language needs, location targets, and CV collection goals, aligning with Pioneer's demand for specific skills and talents.
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box kpi">
+            KPI 4: Recruitment Event Metrics
+            <div class="details">
+                <ul>
+                    <li>Event Attendance Rate: Measure the number of attendees compared to the target number of candidates for each event.</li>
+                    <li>Language Match Rate: Track how well the collected CVs meet the language needs specified for each event.</li>
+                    <li>CV Collection Target Achievement: Monitor the percentage of the target CVs collected at each event.</li>
+                    <li>Event Cost Efficiency: Calculate the average cost per CV collected to ensure events are conducted efficiently.</li>
+                </ul>
+            </div>
+        </div>
+        <span class="arrow">→</span>
+        <div class="box pilot">
+            Pilot 4: Recruitment Event Optimization Strategies
+            <div class="details">
+                <ul>
+                    <li>Pre-Event Targeting and Promotion: Use targeted promotions to ensure attendance aligns with language and skill requirements for each event.</li>
+                    <li>On-Site Feedback and Adjustment: Collect feedback during events to make on-the-spot adjustments.</li>
+                    <li>Post-Event Analysis and Reporting: Analyze attendance, language match, and CV collection to refine future events.</li>
+                    <li>Dynamic Resource Allocation: Adjust resources dynamically based on event performance data.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
-function calculateShiftEarnings(workbook) {
-  const firstSheetName = workbook.SheetNames[0];
-  const worksheet = workbook.Sheets[firstSheetName];
-  const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-  rows.shift(); // Remove the header
-  
-  let earningsPerShift = {
-    '07:00 AM - 15:00 PM': {},
-    '15:00 PM - 23:00 PM': {},
-    '23:00 PM - 07:00 AM': {}
-  };
-
-  rows.forEach(row => {
-    if (row && row.length > 0) {
-      const date = new Date(row[0]);
-      const shift = assignShift(date);
-      const netEarnings = parseFloat(row[3]);
-      
-      const dateString = date.toISOString().split('T')[0];
-      if (!earningsPerShift[shift][dateString]) {
-        earningsPerShift[shift][dateString] = 0;
-      }
-      
-      earningsPerShift[shift][dateString] += netEarnings;
-    }
-  });
-
-  return earningsPerShift;
-}
-
-function createTable(earningsPerShift) {
-  const table = document.createElement('table');
-  const thead = table.createTHead();
-  const tbody = table.createTBody();
-  const headerRow = thead.insertRow();
-
-  // Create header
-  const shiftHeader = document.createElement('th');
-  shiftHeader.textContent = 'Shift';
-  headerRow.appendChild(shiftHeader);
-
-  let dateHeaders = [];
-  for (const shift in earningsPerShift) {
-    for (const date in earningsPerShift[shift]) {
-      if (!dateHeaders.includes(date)) {
-        dateHeaders.push(date);
-      }
-    }
-  }
-
-  dateHeaders.sort();
-  dateHeaders.forEach(date => {
-    const dateHeader = document.createElement('th');
-    dateHeader.textContent = date;
-    headerRow.appendChild(dateHeader);
-  });
-
-  // Create body in specific order
-  const shiftsOrder = ['07:00 AM - 15:00 PM', '15:00 PM - 23:00 PM', '23:00 PM - 07:00 AM'];
-  shiftsOrder.forEach(shift => {
-    const row = tbody.insertRow();
-    const shiftCell = row.insertCell();
-    shiftCell.textContent = shift;
-
-    dateHeaders.forEach(date => {
-      const cell = row.insertCell();
-      cell.textContent = earningsPerShift[shift][date] ? earningsPerShift[shift][date].toFixed(2) : '0.00';
-    });
-  });
-
-  return table;
-}
-
-function handleFile(inputId, resultId) {
-  const input = document.getElementById(inputId);
-  const file = input.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const data = e.target.result;
-    const workbook = XLSX.read(data, {
-      type: 'binary'
-    });
-
-    const earningsPerShift = calculateShiftEarnings(workbook);
-    const resultsTable = createTable(earningsPerShift);
-    const resultsDiv = document.getElementById(resultId);
-    resultsDiv.innerHTML = '';
-    resultsDiv.appendChild(resultsTable);
-  };
-
-  reader.readAsBinaryString(file);
-}
-</script>
 </body>
 </html>
+           
